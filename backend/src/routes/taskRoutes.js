@@ -31,8 +31,7 @@ const taskUpdateRules = [
     .optional()
     .isIn(['PENDING', 'IN_PROGRESS', 'DONE'])
     .withMessage('Status must be PENDING, IN_PROGRESS, or DONE'),
-  body('dueDate').optional().isISO8601().withMessage('dueDate must be a valid date'),
-];
+body('dueDate').optional({ nullable: true }).isISO8601().withMessage('Due Date must be a valid date'),];
 
 /**
  * @openapi
