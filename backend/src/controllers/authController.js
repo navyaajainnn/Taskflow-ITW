@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const prisma = require('../config/db');
 const AppError = require('../utils/AppError');
 
-// Small helper: creates a signed JWT that encodes the user's id + email.
 function signToken(user) {
   return jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN || '1d',

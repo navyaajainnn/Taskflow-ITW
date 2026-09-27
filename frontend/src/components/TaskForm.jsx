@@ -25,16 +25,22 @@ export default function TaskForm({ initialTask, onSubmit, onCancel }) {
   }
 
   async function handleSubmit(e) {
-    e.preventDefault();
-    if (!validate()) return;
+  e.preventDefault();
+  if (!validate()) return;
 
-    setSubmitting(true);
-    try {
-      await onSubmit(values);
-    } finally {
-      setSubmitting(false);
-    }
+  setSubmitting(true);
+  try {
+    await onSubmit({ ...values, dueDate: values.dueDate || null });
+  } catch (err) {
+  const serverErrors = err.response?.data?.errors;
+  const message = serverErrors?.length
+    ? serverErrors.map((e) => e.message).join(', ')
+    : err.response?.data?.message || 'Something went wrong. Please try again.';
+  setErrors({ ...errors, form: message });
+} finally {
+    setSubmitting(false);
   }
+}
 
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
@@ -82,12 +88,13 @@ export default function TaskForm({ initialTask, onSubmit, onCancel }) {
           id="dueDate"
           label="Due date"
           type="date"
+          min={new Date().toISOString().slice(0, 10)}
           value={values.dueDate}
           error={errors.dueDate}
           onChange={(e) => setValues({ ...values, dueDate: e.target.value })}
         />
       </div>
-
+{errors.form && <p className="text-sm text-red-600 mb-2">{errors.form}</p>}
       <div className="flex gap-2 justify-end">
         {onCancel && (
           <Button variant="secondary" type="button" onClick={onCancel}>
