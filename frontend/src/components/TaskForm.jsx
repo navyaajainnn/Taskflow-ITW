@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import Input from './Input';
 import Button from './Button';
 
@@ -29,21 +29,21 @@ export default function TaskForm({ initialTask, onSubmit, onCancel }) {
   if (!validate()) return;
 
   setSubmitting(true);
-  try {
+  try{
     await onSubmit({ ...values, dueDate: values.dueDate || null });
-  } catch (err) {
+  }catch (err) {
   const serverErrors = err.response?.data?.errors;
   const message = serverErrors?.length
     ? serverErrors.map((e) => e.message).join(', ')
     : err.response?.data?.message || 'Something went wrong. Please try again.';
   setErrors({ ...errors, form: message });
-} finally {
+}finally {
     setSubmitting(false);
   }
 }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+    <form onSubmit={handleSubmit} className="rounded-2xl border border-stone-800 bg-stone-900/90 p-5 shadow-lg shadow-black/10">
       <Input
         id="title"
         label="Title"
@@ -54,7 +54,7 @@ export default function TaskForm({ initialTask, onSubmit, onCancel }) {
       />
 
       <div className="mb-4">
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="description" className="block text-sm font-medium text-stone-300 mb-1">
           Description
         </label>
         <textarea
@@ -62,21 +62,21 @@ export default function TaskForm({ initialTask, onSubmit, onCancel }) {
           rows={3}
           value={values.description}
           onChange={(e) => setValues({ ...values, description: e.target.value })}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+          className="w-full rounded-xl border border-stone-700 bg-stone-800 px-3 py-2 text-sm text-stone-100 placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-brand-500"
           placeholder="Optional details"
         />
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <div className="mb-4">
-          <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="status" className="block text-sm font-medium text-stone-300 mb-1">
             Status
           </label>
           <select
             id="status"
             value={values.status}
             onChange={(e) => setValues({ ...values, status: e.target.value })}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+            className="w-full rounded-xl border border-stone-700 bg-stone-800 px-3 py-2 text-sm text-stone-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
           >
             <option value="PENDING">Pending</option>
             <option value="IN_PROGRESS">In Progress</option>
@@ -89,6 +89,7 @@ export default function TaskForm({ initialTask, onSubmit, onCancel }) {
           label="Due date"
           type="date"
           min={new Date().toISOString().slice(0, 10)}
+          max={new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)}
           value={values.dueDate}
           error={errors.dueDate}
           onChange={(e) => setValues({ ...values, dueDate: e.target.value })}

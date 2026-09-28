@@ -14,20 +14,20 @@ const STATUS_LABELS = {
 
 export default function TaskCard({ task, onEdit, onDelete, onToggleStatus }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm flex flex-col gap-2">
+    <div className="rounded-2xl border border-stone-800 bg-stone-900/85 p-5 shadow-lg shadow-black/10 transition-all hover:-translate-y-0.5 hover:border-stone-700 flex flex-col gap-3">
       <div className="flex items-start justify-between gap-2">
-        <h3 className="font-semibold text-gray-900 break-words">{task.title}</h3>
-        <span className={`text-xs px-2 py-1 rounded-full whitespace-nowrap ${STATUS_STYLES[task.status]}`}>
+        <h3 className="font-semibold text-stone-100 break-words">{task.title}</h3>
+        <span className={`text-xs px-2.5 py-1 rounded-full font-medium whitespace-nowrap ${STATUS_STYLES[task.status]}`}>
           {STATUS_LABELS[task.status]}
         </span>
       </div>
 
       {task.description && (
-        <p className="text-sm text-gray-600 break-words">{task.description}</p>
+        <p className="text-sm leading-6 text-stone-400 break-words">{task.description}</p>
       )}
 
       {task.dueDate && (
-        <p className="text-xs text-gray-400">
+        <p className="text-xs font-medium text-stone-500">
           Due {new Date(task.dueDate).toLocaleDateString()}
         </p>
       )}

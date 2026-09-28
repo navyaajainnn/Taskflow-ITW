@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const AppError = require('../utils/AppError');
 
+//agar user authenticated hai to next() call hoga aur request aage jaayegi, agar user authenticated nahi hai to error throw hoga.
 function requireAuth(req, res, next) {
   const authHeader = req.headers.authorization;
 

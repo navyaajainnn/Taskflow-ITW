@@ -1,6 +1,4 @@
-// These tests exercise the auth routes end-to-end (HTTP -> validation ->
-// controller) but replace the real database with a mock, so they run fast
-// and don't need a live PostgreSQL instance in CI.
+// This file contains tests for the authentication routes (register and login) and the auth middleware.
 jest.mock('../src/config/db', () => ({
   user: {
     findUnique: jest.fn(),

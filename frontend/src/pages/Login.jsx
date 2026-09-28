@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import {useState} from 'react';
+import {useNavigate } from 'react-router-dom';
+import {useAuth} from '../context/AuthContext';
 import Input from '../components/Input';
 import Button from '../components/Button';
 
 export default function Login() {
-  const { login, register } = useAuth();
+  const {login, register } = useAuth();
   const navigate = useNavigate();
 
   const [mode, setMode] = useState('login'); 
@@ -29,27 +29,38 @@ export default function Login() {
     if (!validate()) return;
 
     setSubmitting(true);
-    try {
-      if (mode === 'login') {
+    try{
+      if(mode === 'login') {
         await login(values.email, values.password);
-      } else {
+      }else {
         await register(values.name, values.email, values.password);
       }
+
+
+
       navigate('/tasks');
-    } catch (err) {
+    } catch(err){
       setApiError(err.response?.data?.message || 'Something went wrong. Please try again.');
-    } finally {
+    } finally{
       setSubmitting(false);
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-sm bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-        <h1 className="text-xl font-bold text-brand-700 mb-1">TaskFlow</h1>
-        <p className="text-sm text-gray-500 mb-6">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8 md:py-12">
+      <div className="w-full max-w-xl rounded-3xl border border-stone-800 bg-stone-900/85 p-8 shadow-2xl shadow-black/40 backdrop-blur sm:p-10">
+        <div className="mb-6 flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-500 text-lg font-bold text-stone-950 shadow-md shadow-amber-950/2000">✓</div>
+        <h1 className="text-3xl font-bold tracking-tight text-stone-100 mb-2">Welcome to TaskFlow</h1>
+        <p className="text-sm text-stone-400 mb-6">
           {mode === 'login' ? 'Log in to manage your tasks' : 'Create an account to get started'}
         </p>
+
+        <div className="mb-8 rounded-2xl border border-stone-800 bg-stone-950/40 p-5">
+          <p className="text-base font-semibold text-stone-200">Plan less. Finish more.</p>
+          <p className="mt-1 text-sm leading-6 text-stone-500">
+            Keep your next step in sight and turn everyday tasks into steady progress.
+          </p>
+        </div>
 
         <form onSubmit={handleSubmit}>
           {mode === 'register' && (

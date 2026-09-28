@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import api from '../api/axios';
 import Navbar from '../components/Navbar';
 import TaskCard from '../components/TaskCard';
@@ -16,17 +16,18 @@ export default function Tasks() {
   async function fetchTasks() {
     setLoading(true);
     setError('');
-    try {
+    try{
       const params = filter === 'ALL' ? {} : { status: filter };
       const res = await api.get('/tasks', { params });
       setTasks(res.data.data);
-    } catch (err) {
+    }catch (err) {
       setError('Could not load tasks. Please try again.');
-    } finally {
+    }finally{
       setLoading(false);
     }
   }
 
+  // Fetch tasks whenever the filter changes
   useEffect(() => {
     fetchTasks();
   }, [filter]);
@@ -50,7 +51,7 @@ export default function Tasks() {
   }
 
   async function handleToggleStatus(task) {
-    const newStatus = task.status === 'DONE' ? 'PENDING' : 'DONE';
+    const newStatus = task.status === 'DONE' ?'PENDING':'DONE';
     const res = await api.put(`/tasks/${task.id}`, { status: newStatus });
     setTasks((prev) => prev.map((t) => (t.id === task.id ? res.data.data : t)));
   }
@@ -58,28 +59,31 @@ export default function Tasks() {
   return (
     <div>
       <Navbar />
-      <main className="max-w-4xl mx-auto px-4 py-6">
-        <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-          <h1 className="text-lg font-semibold">Your tasks</h1>
+      <main className="max-w-4xl mx-auto px-4 py-8">
+        <div className="flex items-end justify-between mb-6 flex-wrap gap-3">
+          <div>
+            <p className="text-sm font-medium text-brand-500">Your workspace</p>
+            <h1 className="text-2xl font-bold tracking-tight text-stone-100">Your tasks</h1>
+          </div>
           <Button
             onClick={() => {
               setEditingTask(null);
               setShowForm((s) => !s);
             }}
           >
-            {showForm && !editingTask ? 'Close' : '+ New task'}
+            {showForm && !editingTask ?'Close':'+ New task'}
           </Button>
         </div>
 
-        <div className="flex gap-2 mb-4">
+        <div className="flex gap-2 mb-6 rounded-2xl border border-stone-800 bg-stone-900/70 p-2 w-fit">
           {['ALL', 'PENDING', 'IN_PROGRESS', 'DONE'].map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
               className={`text-xs px-3 py-1 rounded-full border ${
                 filter === f
-                  ? 'bg-brand-600 text-white border-brand-600'
-                  : 'bg-white text-gray-600 border-gray-300'
+                  ? 'bg-brand-500 text-stone-950 border-brand-500 shadow-sm shadow-amber-950/40'
+                  : 'border-transparent bg-transparent text-stone-400 hover:bg-stone-800 hover:text-brand-100'
               }`}
             >
               {f.replace('_', ' ')}
@@ -106,7 +110,7 @@ export default function Tasks() {
           <p className="text-sm text-gray-500">No tasks yet. Create your first one above.</p>
         )}
 
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-3 sm:grid-cols-1">
           {tasks.map((task) => (
             <TaskCard
               key={task.id}

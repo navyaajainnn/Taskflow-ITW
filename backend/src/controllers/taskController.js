@@ -60,6 +60,7 @@ async function updateTask(req, res, next) {
       return next(new AppError('Task not found', 404));
     }
 
+    //fields tabhi update honge agar wo request body mei diye gaye ho. Agar koi field nahi di gayi hai, to wo update nahi hogi.
     const { title, description, status, dueDate } = req.body;
     const task = await prisma.task.update({
       where: { id },
@@ -81,7 +82,7 @@ async function deleteTask(req, res, next) {
   try {
     const id = Number(req.params.id);
     const existing = await prisma.task.findUnique({ where: { id } });
-
+    //Agar task exist nahi karta ya phir wo user ka nahi hai, to 404 error throw karenge.
     if (!existing || existing.userId !== req.user.id) {
       return next(new AppError('Task not found', 404));
     }
@@ -93,4 +94,4 @@ async function deleteTask(req, res, next) {
   }
 }
 
-module.exports = { getTasks, getTask, createTask, updateTask, deleteTask };
+module.exports={getTasks, getTask, createTask, updateTask, deleteTask};

@@ -3,5 +3,8 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-50 text-gray-900;
+  @apply min-h-screen bg-stone-950 text-stone-100 antialiased;
+  background-image:
+    radial-gradient(circle at top left, rgba(120, 53, 15, 0.42), transparent 30rem),
+    radial-gradient(circle at right 20%, rgba(146, 64, 14, 0.25), transparent 26rem);
 }
