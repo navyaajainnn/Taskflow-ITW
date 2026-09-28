@@ -15,7 +15,7 @@ input validation, error handling, Swagger docs, and unit tests on both layers.
 | Backend | Node.js + Express | Lightweight, explicit middleware chain, easy to reason about |
 | ORM | Prisma | Type safe queries, readable schema, auto-generated migrations |
 | Database | PostgreSQL | Relational data (User → Tasks) fits a relational DB naturally |
-| Auth | JWT (jsonwebtoken + bcryptjs) | Stateless auth; passwords hashed, never stored in plain text |
+| Auth | JWT (jsonwebtoken + bcryptjs) | Stateless auth with passwords hashed, never stored in plain text |
 | Validation | express-validator (backend), manual validation (frontend) | Defense in depth: never trust client input alone |
 | API docs | Swagger (swagger-jsdoc + swagger-ui-express) | Docs generated from code comments, stay in sync with routes |
 | Testing | Jest + Supertest (backend), Vitest + React Testing Library (frontend) | Cover one full layer each |
@@ -100,7 +100,7 @@ the collection's `token` variable, then the task requests will be authenticated.
 ## 5. Design decisions
 
 - **Tasks are scoped per user.** Every task query filters by `userId`, and every
-  update/delete first checks the existing row's `userId` matches the requester — this
+  update/delete first checks the existing row's `userId` matches the requester. This
   prevents User A from reading or modifying User B's tasks even by guessing IDs.
 - **Passwords are bcrypt-hashed**, never stored or returned in plain text. Login/register
   responses only ever include `id`, `name`, `email`.
