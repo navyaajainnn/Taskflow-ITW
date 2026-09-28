@@ -1,6 +1,6 @@
 # TaskFlow - Your one stop Task Manager App!
 
-A production-style task management app built as a skill assessment: React (Vite + Tailwind)
+A production style task management app built with: React (Vite + Tailwind)
 frontend, Node.js/Express REST API, PostgreSQL database via Prisma ORM, JWT authentication,
 input validation, error handling, Swagger docs, and unit tests on both layers.
 
@@ -25,23 +25,23 @@ input validation, error handling, Swagger docs, and unit tests on both layers.
 ```
 taskflow-app/
 ├── backend/
-│   ├── prisma/schema.prisma      # DB schema (User, Task models)
+│   ├── prisma/schema.prisma      
 │   ├── src/
-│   │   ├── config/db.js          # Prisma client singleton
-│   │   ├── middleware/           # auth, validation, error handling
-│   │   ├── controllers/          # business logic
-│   │   ├── routes/               # route definitions + Swagger annotations
-│   │   ├── docs/swagger.js       # OpenAPI config
-│   │   ├── app.js                # Express app (exported for tests)
-│   │   └── server.js             # starts the HTTP server
-│   └── tests/                    # Jest + Supertest
+│   │   ├── config/db.js          
+│   │   ├── middleware/           
+│   │   ├── controllers/          
+│   │   ├── routes/               
+│   │   ├── docs/swagger.js       
+│   │   ├── app.js                
+│   │   └── server.js             
+│   └── tests/                    
 ├── frontend/
 │   └── src/
-│       ├── api/axios.js          # shared HTTP client + token interceptor
+│       ├── api/axios.js          
 │       ├── context/AuthContext.jsx
-│       ├── components/           # Button, Input, TaskCard, TaskForm, Navbar, ProtectedRoute
-│       ├── pages/                # Login, Tasks
-│       └── tests/                # Vitest + React Testing Library
+│       ├── components/           
+│       ├── pages/                
+│       └── tests/                
 └── postman_collection.json
 ```
 
@@ -56,8 +56,8 @@ taskflow-app/
 ```bash
 cd backend
 npm install
-cp .env.example .env        # fill in DATABASE_URL and JWT_SECRET
-npx prisma migrate dev --name init   # creates tables from schema.prisma
+cp .env.example .env        
+npx prisma migrate dev --name init   
 npm run dev                 # starts API on http://localhost:5000
 ```
 
@@ -96,8 +96,6 @@ the collection's `token` variable, then the task requests will be authenticated.
 | PUT | `/api/tasks/:id` | Yes | Update a task |
 | DELETE | `/api/tasks/:id` | Yes | Delete a task |
 
-Full interactive documentation (request/response shapes, try-it-out) lives in Swagger UI at
-`/api-docs` once the backend is running.
 
 ## 5. Design decisions
 
@@ -116,11 +114,3 @@ Full interactive documentation (request/response shapes, try-it-out) lives in Sw
   frontend can always be bypassed (Postman, curl, a modified client).
 - **React Context over Redux**: the only global state is "who's logged in" and the task list
   is fetched per-page, so Context avoids the extra dependency and boilerplate Redux would add.
-
-## 6. Known limitations / what I'd add with more time
-
-- No refresh-token rotation — JWT simply expires after `JWT_EXPIRES_IN` and the user re-logs in.
-- No pagination on `/api/tasks` (fine for a personal task list; would add `?page=`/`?limit=` at scale).
-- No rate limiting on the auth endpoints (would add `express-rate-limit` in production).
-- Test coverage focuses on the highest-risk paths (validation, auth boundary) rather than every
-  endpoint, to keep the suite fast and readable within the assessment's time limit.
