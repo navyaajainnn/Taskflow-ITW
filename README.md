@@ -13,7 +13,7 @@ input validation, error handling, Swagger docs, and unit tests on both layers.
 | State management | React Context API | App state is small (auth + tasks) |
 | Routing | React Router | Standard for client-side route protection |
 | Backend | Node.js + Express | Lightweight, explicit middleware chain, easy to reason about |
-| ORM | Prisma | Type-safe queries, readable schema, auto-generated migrations |
+| ORM | Prisma | Type safe queries, readable schema, auto-generated migrations |
 | Database | PostgreSQL | Relational data (User → Tasks) fits a relational DB naturally |
 | Auth | JWT (jsonwebtoken + bcryptjs) | Stateless auth; passwords hashed, never stored in plain text |
 | Validation | express-validator (backend), manual validation (frontend) | Defense in depth: never trust client input alone |
