@@ -8,9 +8,9 @@ input validation, error handling, Swagger docs, and unit tests on both layers.
 
 | Layer | Choice | Why |
 |---|---|---|
-| Frontend | React + Vite | Fast dev server, minimal config, industry-standard |
-| Styling | Tailwind CSS | Consistent spacing/typography without hand-rolled CSS |
-| State management | React Context API | App state is small (auth + tasks); Redux would be overkill |
+| Frontend | React + Vite | Fast dev server |
+| Styling | Tailwind CSS | Consistent typography without hand-rolled CSS |
+| State management | React Context API | App state is small (auth + tasks) |
 | Routing | React Router | Standard for client-side route protection |
 | Backend | Node.js + Express | Lightweight, explicit middleware chain, easy to reason about |
 | ORM | Prisma | Type-safe queries, readable schema, auto-generated migrations |
@@ -18,7 +18,7 @@ input validation, error handling, Swagger docs, and unit tests on both layers.
 | Auth | JWT (jsonwebtoken + bcryptjs) | Stateless auth; passwords hashed, never stored in plain text |
 | Validation | express-validator (backend), manual validation (frontend) | Defense in depth: never trust client input alone |
 | API docs | Swagger (swagger-jsdoc + swagger-ui-express) | Docs generated from code comments, stay in sync with routes |
-| Testing | Jest + Supertest (backend), Vitest + React Testing Library (frontend) | Cover one full layer each, as required |
+| Testing | Jest + Supertest (backend), Vitest + React Testing Library (frontend) | Cover one full layer each |
 
 ## 2. Project structure
 
