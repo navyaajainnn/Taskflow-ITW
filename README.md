@@ -1,4 +1,4 @@
-# TaskFlow — Full-Stack Task Manager
+# TaskFlow - Your one stop Task Manager App!
 
 A production-style task management app built as a skill assessment: React (Vite + Tailwind)
 frontend, Node.js/Express REST API, PostgreSQL database via Prisma ORM, JWT authentication,
