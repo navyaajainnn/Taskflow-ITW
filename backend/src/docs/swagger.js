@@ -1,6 +1,5 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 
-// swagger-jsdoc reads the @openapi comment blocks above each route
 const options ={
   definition: {
     openapi: '3.0.0',
